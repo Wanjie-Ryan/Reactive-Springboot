@@ -1,0 +1,28 @@
+package com.webflux.reactiveSpring;
+
+import org.junit.Test;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+public class MonoFluxTest {
+
+    @Test
+    public void testMono() {
+        // the code below creates a mono that emits a single value("wanjier") and completes
+        // the mono.just method is a synchronous method, meaning it immediately emits the value "wanjier" when subscribed to.
+        // the generic type String indicates that this mono will emit a string type.
+        Mono<String> monoString = Mono.just("wanjier").log();
+        monoString.subscribe(System.out::println);
+        // the .subscribe method subscribes to the Mono and specifies a consumer function that will be invoked when the value is emitted.
+
+
+    }
+
+    @Test
+    public void testFlux() {
+        Flux<String> fluxString = Flux.just("hey", "there", "how about");
+        fluxString.subscribe(System.out::println);
+
+    }
+
+}
