@@ -36,7 +36,6 @@ public class CustomerHandler {
 
     public Mono<ServerResponse> saveCustomer(ServerRequest request){
         Mono<Customer> createdCustomer = request.bodyToMono(Customer.class);
-        return ServerResponse.ok().body(createdCustomer, Customer.class);
     }
 
 }

@@ -22,7 +22,7 @@ public class RouterConfig {
     @Bean
     // the router function below creates a route that listens for GET requests to the router and maps them to loadCustomers method in the CustomerHandler.
     public RouterFunction<ServerResponse> routerFunction() {
-        return RouterFunctions.route().GET("/router/customers", customerHandler::loadCustomers).GET("/router/customers/stream", customerStreamHandler::getCustomers)
+        return RouterFunctions.route().GET("/router/customers", customerHandler::loadCustomers).GET("/router/customers/stream", customerStreamHandler::getCustomers).GET("/router/customer/{input}", customerHandler::findCustomer).POST("/save/customer", customerHandler::saveCustomer)
                 .build();
 //        method above defines the route, also specifies that when a GET request is made to the route the loadCustomers method of customerHandler will be called to handle the request
     }
