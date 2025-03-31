@@ -1,0 +1,29 @@
+package com.webflux.reactiveSpring.router;
+
+import com.webflux.reactiveSpring.handler.CustomerHandler;
+import com.webflux.reactiveSpring.handler.CustomerStreamHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
+@Configuration
+public class RouterConfig {
+    // this is a configuration class that defines the routing for your functional style endpoints
+    @Autowired
+    private CustomerHandler customerHandler;
+
+    @Autowired
+    private CustomerStreamHandler customerStreamHandler;
+
+    // based on the incoming URL, one can redirect the incoming request to the handler.
+    @Bean
+    // the router function below creates a route that listens for GET requests to the router and maps them to loadCustomers method in the CustomerHandler.
+    public RouterFunction<ServerResponse> routerFunction() {
+        return RouterFunctions.route().GET("/router/customers", customerHandler::loadCustomers).GET("/router/customers/stream", customerStreamHandler::getCustomers)
+                .build();
+//        method above defines the route, also specifies that when a GET request is made to the route the loadCustomers method of customerHandler will be called to handle the request
+    }
+}
